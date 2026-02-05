@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>MDI Network Background</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        /* NEON THEME CSS (Partial - for Background) */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            overflow-x: hidden;
+            max-width: 100vw;
+            width: 100%;
+            height: 100%;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        :root {
+            --accent-cyan: 190 100% 50%;
+            --accent-purple: 270 100% 65%;
+            --bg-card: 220 25% 15%;
+            --border: 220 25% 25%;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: transparent;
+            overflow: hidden;
+        }
+
+        /* SEA & ANIMATION STYLES */
+        .sea-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Bubbles - deeper and more subtle */
+        .bubbles {
+            position: fixed;
+            top: 55%;
+            left: 0;
+            width: 100%;
+            height: 45%;
+            z-index: -2;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .bubble {
+            position: absolute;
+            bottom: -20px;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.2), transparent);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: rise 15s infinite ease-in;
+        }
+
+        @keyframes rise {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.3;
+            }
+
+            100% {
+                transform: translateY(-50vh) translateX(30px);
+                opacity: 0;
+            }
+        }
+
+        /* Vessel with bobbing */
+        /* Vessel with bobbing - Split animations */
+        .vessel-container {
+            position: absolute;
+            top: calc(55% - 45px);
+            left: -150px;
+            z-index: 5;
+            filter: drop-shadow(0 20px 20px rgba(0, 0, 0, 0.4));
+            animation: sail-across 60s linear infinite;
+        }
+
+        .vessel-inner {
+            animation: bobbing 3s ease-in-out infinite;
+            transform-origin: center bottom;
+        }
+
+        @keyframes bobbing {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(8px) rotate(1deg);
+            }
+        }
+
+        @keyframes sail-across {
+            0% {
+                transform: translateX(-150px) scale(0.9);
+            }
+
+            100% {
+                transform: translateX(calc(100vw + 300px)) scale(0.9);
+            }
+        }
+
+        .vessel-lights {
+            position: absolute;
+            top: 15px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 35px;
+        }
+
+        .light {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            animation: blink 1s infinite alternate;
+        }
+
+        .light.red {
+            background: #ff0000;
+            box-shadow: 0 0 10px #ff0000;
+        }
+
+        .light.green {
+            background: #00ff00;
+            box-shadow: 0 0 10px #00ff00;
+        }
+
+        @keyframes blink {
+            0% {
+                opacity: 0.4;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        /* Fish - Silhouettes */
+        .fish-school {
+            position: absolute;
+            top: 55%;
+            /* Starts at horizon */
+            left: 0;
+            width: 100%;
+            height: 45%;
+            /* Underwater area */
+            pointer-events: none;
+            z-index: 1;
+            /* Inside/Behind waves */
+            overflow: hidden;
+        }
+
+        /* NEW FISH ANIMATIONS */
+        svg.fish {
+            overflow: visible;
+            width: 235px;
+            height: 104px;
+            margin-left: -235px;
+            position: absolute;
+            bottom: 10%;
+            animation: swim 20s infinite linear;
+        }
+
+        @keyframes swim {
+            0% {
+                margin-left: -235px;
+                transform: translateY(0);
+            }
+
+            25% {
+                margin-left: 25%;
+                transform: translateY(-60px);
+            }
+
+            50% {
+                margin-left: 50%;
+                transform: translateY(-80px);
+            }
+
+            75% {
+                margin-left: 75%;
+                transform: translateY(-40px);
+            }
+
+            100% {
+                margin-left: 100%;
+                transform: translateY(20px);
+            }
+        }
+
+        /* Individual Fish Bounce Animations */
+        svg #fish1 {
+            fill: #1e3a5f;
+            animation: bounce 2s infinite;
+            animation-delay: 0s;
+        }
+
+        svg #fish2 {
+            fill: #1e3a5f;
+            animation: bounce 2s infinite;
+            animation-delay: 0.5s;
+        }
+
+        svg #fish3 {
+            fill: #1e3a5f;
+            animation: bounce 2s infinite;
+            animation-delay: 0.2s;
+        }
+
+        svg #fish4 {
+            fill: #1e3a5f;
+            animation: bounce 2s infinite;
+            animation-delay: 0.4s;
+        }
+
+        svg #fish5 {
+            fill: #1e3a5f;
+            animation: bounce 2s infinite;
+            animation-delay: 0.1s;
+        }
+
+        svg #fish6 {
+            fill: #1e3a5f;
+            animation: bounce 2s infinite;
+            animation-delay: 0.3s;
+        }
+
+        /* Bounce Keyframe */
+        @keyframes bounce {
+
+            0%,
+            50%,
+            100% {
+                transform: translateY(0);
+            }
+
+            25% {
+                transform: translateY(-5px);
+            }
+
+            75% {
+                transform: translateY(-3px);
+            }
+        }
+
+        /* Sea Canvas */
+        #sea-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            /* Above sky, below content */
+        }
+
+        /* Sky Gradient Background */
+        #sky-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -10;
+            background: linear-gradient(180deg, #e0f2fe 0%, #bae6fd 40%, #7dd3fc 60%, #0284c7 100%);
+            pointer-events: none;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/simplex-noise/2.4.0/simplex-noise.min.js"></script>
+</head>
+
+<body>
+    <!-- Sky Background -->
+    <div id="sky-bg"></div>
+
+    <!-- BUBBLES CONTAINER -->
+    <div class="bubbles" id="bubbles"></div>
+
+    <!-- ANIMATION CONTAINER -->
+    <div class="sea-container">
+        <canvas id="sea-canvas"></canvas>
+
+        <!-- Vessel -->
+        <div class="vessel-container">
+            <div class="vessel-inner">
+
+                <svg width="120" height="60" viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g transform="translate(120, 0) scale(-1, 1)">
+                        <!-- Hull -->
+                        <path
+                            d="M10,40 L110,40 L115,40 C118,40 120,42 120,45 C120,55 110,60 60,60 C10,60 0,55 0,45 C0,42 2,40 5,40 Z"
+                            fill="#0f172a" />
+                        <!-- Container Row 1 (bottom) -->
+                        <rect x="15" y="28" width="18" height="12" fill="#ef4444" rx="1" />
+                        <rect x="35" y="28" width="18" height="12" fill="#22c55e" rx="1" />
+                        <rect x="55" y="28" width="18" height="12" fill="#3b82f6" rx="1" />
+                        <rect x="75" y="28" width="18" height="12" fill="#f97316" rx="1" />
+                        <!-- Container Row 2 (top) -->
+                        <rect x="20" y="15" width="18" height="12" fill="#8b5cf6" rx="1" />
+                        <rect x="40" y="15" width="18" height="12" fill="#06b6d4" rx="1" />
+                        <rect x="60" y="15" width="18" height="12" fill="#eab308" rx="1" />
+                        <!-- Bridge/Control cabin at front -->
+                        <rect x="95" y="20" width="12" height="20" fill="#1e293b" rx="1" />
+                        <rect x="97" y="24" width="8" height="6" fill="#38bdf8" rx="1" />
+                        <!-- Deck line -->
+                        <path d="M10,48 L110,48" stroke="#334155" stroke-width="2" />
+                    </g>
+                    <text x="15" y="55" fill="#64748b" font-family="sans-serif" font-size="6"
+                        font-weight="bold">MDI-NET</text>
+                </svg>
+                <div class="vessel-lights">
+                    <div class="light green"></div>
+                    <div class="light red"></div>
+                </div>
+            </div>
+        </div>
+        <!-- Vessel -->
+        <div class="vessel-container">
+            <div class="vessel-inner">
+
+                <svg width="120" height="60" viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g transform="translate(120, 0) scale(-1, 1)">
+                        <!-- Hull -->
+                        <path
+                            d="M10,40 L110,40 L115,40 C118,40 120,42 120,45 C120,55 110,60 60,60 C10,60 0,55 0,45 C0,42 2,40 5,40 Z"
+                            fill="#0f172a" />
+                        <!-- Container Row 1 (bottom) -->
+                        <rect x="15" y="28" width="18" height="12" fill="#ef4444" rx="1" />
+                        <rect x="35" y="28" width="18" height="12" fill="#22c55e" rx="1" />
+                        <rect x="55" y="28" width="18" height="12" fill="#3b82f6" rx="1" />
+                        <rect x="75" y="28" width="18" height="12" fill="#f97316" rx="1" />
+                        <!-- Container Row 2 (top) -->
+                        <rect x="20" y="15" width="18" height="12" fill="#8b5cf6" rx="1" />
+                        <rect x="40" y="15" width="18" height="12" fill="#06b6d4" rx="1" />
+                        <rect x="60" y="15" width="18" height="12" fill="#eab308" rx="1" />
+                        <!-- Bridge/Control cabin at front -->
+                        <rect x="95" y="20" width="12" height="20" fill="#1e293b" rx="1" />
+                        <rect x="97" y="24" width="8" height="6" fill="#38bdf8" rx="1" />
+                        <!-- Deck line -->
+                        <path d="M10,48 L110,48" stroke="#334155" stroke-width="2" />
+                    </g>
+                    <text x="15" y="55" fill="#64748b" font-family="sans-serif" font-size="6"
+                        font-weight="bold">MDI-NET</text>
+                </svg>
+                <div class="vessel-lights">
+                    <div class="light green"></div>
+                    <div class="light red"></div>
+                </div>
+            </div>
+        </div>
+        <!-- Fish -->
+        <div class="fish-school">
+            <svg class="fish" id="fish" fill="#1e3a5f">
+                <path id="fish1" fill="#1e3a5f"
+                    d="m 68.19699,20.522295 c 0.0489,-0.44418 -0.2178,-0.896934 -1.01784,-1.415715 -0.72801,-0.47505 -1.4826,-0.932949 -2.2149,-1.401138 -1.6035,-1.02813 -3.29018,-1.969653 -4.89798,-3.079245 C 55.39553,11.384887 49.845,10.221274 44.30305,9.4752582 42.0307,9.1888572 39.49082,9.3063332 37.58119,7.900907 36.09945,6.819613 33.53126,3.072384 30.71613,1.444869 30.22993,1.154181 27.94386,0 27.94386,0 c 0,0 1.30939,3.550006 1.60951,4.264295 0.69542,1.644664 -0.38158,3.063809 -0.83262,4.642447 -0.29069,1.0418502 2.13772,0.8129002 2.26463,1.782721 0.18179,1.432007 -4.15197,1.936211 -6.59152,2.417263 -3.65634,0.715146 -7.91635,2.082842 -11.56925,0.884072 C 8.52001,12.607667 5.45192,9.8611282 2.35895,6.755302 3.79696,13.480591 7.79715,17.358159 7.97465,18.177919 8.16072,19.083427 7.51504,19.269502 6.93366,19.860313 5.64399,21.125967 0.018,27.591438 0,29.641695 1.61379,29.39388 3.56115,27.980738 4.9803,27.155833 c 1.58035,-0.905509 7.60593,-5.373029 9.29347,-6.065023 0.38587,-0.160351 5.0549,-1.531476 5.09434,-0.932948 0.0695,0.932948 -0.30784,1.137031 -0.18436,1.527188 0.22638,0.746016 1.44144,1.46545 2.02282,1.985088 1.50918,1.292237 3.21044,2.42841 4.27373,4.156252 1.49203,2.401827 1.55805,4.999163 1.98251,7.677102 0.99469,-0.111473 2.0091,-2.17545 2.55961,-2.992638 0.51278,-0.772598 2.38639,-4.071359 3.09725,-4.275442 0.67227,-0.204082 2.75511,0.958673 3.50284,1.180763 2.85973,0.848057 5.644,1.353976 8.56032,1.353976 3.50799,0.0094 12.726,0.258104 19.55505,-4.800226 0.75545,-0.567658 2.55703,-2.731104 2.55703,-2.731104 0,0 -0.37644,-0.57709 -1.04785,-0.790605 0.89779,-0.584808 1.8659,-1.211633 1.94993,-1.925921 z" />
+
+                <path id="fish2" fill="#1e3a5f"
+                    d="m 172.04828,20.913839 c 0.0489,-0.444179 -0.2178,-0.896934 -1.01784,-1.415715 -0.72801,-0.475049 -1.4826,-0.932948 -2.2149,-1.401138 -1.6035,-1.028129 -3.29018,-1.969653 -4.89798,-3.079244 -4.67074,-3.24131 -10.22127,-4.404923 -15.76322,-5.1509392 -2.27235,-0.286401 -4.81223,-0.168925 -6.72186,-1.574351 -1.48174,-1.081294 -4.04993,-4.828523 -6.86506,-6.456038 -0.4862,-0.290688 -2.77227,-1.44486897 -2.77227,-1.44486897 0,0 1.30939,3.55000597 1.60951,4.26429497 0.69542,1.644664 -0.38158,3.063809 -0.83262,4.642447 -0.29069,1.0418502 2.13772,0.8129002 2.26463,1.7827212 0.18179,1.432007 -4.15197,1.936211 -6.59152,2.417263 -3.65634,0.715146 -7.91635,2.082841 -11.56925,0.884071 -4.3046,-1.38313 -7.37269,-4.129669 -10.46566,-7.2354952 1.43801,6.7252892 5.4382,10.6028562 5.6157,11.4226162 0.18607,0.905509 -0.45961,1.091584 -1.04099,1.682394 -1.28967,1.265655 -6.91566,7.731125 -6.93366,9.781383 1.61379,-0.247815 3.56115,-1.660957 4.9803,-2.485862 1.58035,-0.905509 7.60593,-5.373029 9.29347,-6.065023 0.38587,-0.160351 5.0549,-1.531476 5.09434,-0.932949 0.0695,0.932949 -0.30784,1.137031 -0.18436,1.527189 0.22638,0.746016 1.44144,1.465449 2.02282,1.985088 1.50918,1.292237 3.21044,2.42841 4.27373,4.156252 1.49203,2.401827 1.55805,4.999163 1.98251,7.677102 0.99469,-0.111473 2.0091,-2.17545 2.55961,-2.992638 0.51278,-0.772598 2.38639,-4.07136 3.09725,-4.275442 0.67227,-0.204082 2.75511,0.958673 3.50284,1.180763 2.85973,0.848057 5.644,1.353976 8.56032,1.353976 3.50799,0.0094 12.726,0.258104 19.55505,-4.800226 0.75545,-0.567658 2.55703,-2.731104 2.55703,-2.731104 0,0 -0.37644,-0.577091 -1.04785,-0.790605 0.89779,-0.584808 1.8659,-1.211633 1.94993,-1.925922 z" />
+
+                <path id="fish3" fill="#1e3a5f"
+                    d="m 234.99441,42.953992 c 0.0489,-0.44418 -0.2178,-0.896934 -1.01784,-1.415715 -0.72801,-0.47505 -1.4826,-0.932949 -2.2149,-1.401138 -1.6035,-1.02813 -3.29018,-1.969653 -4.89798,-3.079245 -4.67074,-3.24131 -10.22127,-4.404923 -15.76322,-5.150939 -2.27235,-0.286401 -4.81223,-0.168925 -6.72186,-1.574351 -1.48174,-1.081294 -4.04993,-4.828523 -6.86506,-6.456038 -0.4862,-0.290688 -2.77227,-1.444869 -2.77227,-1.444869 0,0 1.30939,3.550006 1.60951,4.264295 0.69542,1.644664 -0.38158,3.063809 -0.83262,4.642447 -0.29069,1.04185 2.13772,0.8129 2.26463,1.782721 0.18179,1.432007 -4.15197,1.936211 -6.59152,2.417263 -3.65634,0.715146 -7.91635,2.082842 -11.56925,0.884072 -4.3046,-1.383131 -7.37269,-4.12967 -10.46566,-7.235496 1.43801,6.725289 5.4382,10.602857 5.6157,11.422617 0.18607,0.905508 -0.45961,1.091583 -1.04099,1.682394 -1.28967,1.265654 -6.91566,7.731125 -6.93366,9.781382 1.61379,-0.247815 3.56115,-1.660957 4.9803,-2.485862 1.58035,-0.905509 7.60593,-5.373029 9.29347,-6.065023 0.38587,-0.160351 5.0549,-1.531476 5.09434,-0.932948 0.0695,0.932948 -0.30784,1.137031 -0.18436,1.527188 0.22638,0.746016 1.44144,1.46545 2.02282,1.985088 1.50918,1.292237 3.21044,2.42841 4.27373,4.156252 1.49203,2.401827 1.55805,4.999163 1.98251,7.677102 0.99469,-0.111473 2.0091,-2.17545 2.55961,-2.992638 0.51278,-0.772598 2.38639,-4.071359 3.09725,-4.275442 0.67227,-0.204082 2.75511,0.958673 3.50284,1.180763 2.85973,0.848057 5.644,1.353976 8.56032,1.353976 3.50799,0.0094 12.726,0.258104 19.55505,-4.800226 0.75545,-0.567658 2.55703,-2.731104 2.55703,-2.731104 0,0 -0.37644,-0.57709 -1.04785,-0.790605 0.89779,-0.584808 1.8659,-1.211633 1.94993,-1.925921 z" />
+
+                <path id="fish4" fill="#1e3a5f"
+                    d="m 77.275623,89.018799 c 0.0489,-0.44418 -0.2178,-0.896934 -1.01784,-1.415715 -0.72801,-0.47505 -1.4826,-0.932949 -2.2149,-1.401138 -1.6035,-1.02813 -3.29018,-1.969653 -4.89798,-3.079245 -4.67074,-3.24131 -10.22127,-4.404923 -15.76322,-5.150939 -2.272347,-0.286401 -4.812227,-0.168925 -6.721857,-1.574351 -1.48174,-1.081294 -4.04993,-4.828523 -6.86506,-6.456038 -0.4862,-0.290688 -2.77227,-1.444869 -2.77227,-1.444869 0,0 1.30939,3.550006 1.60951,4.264295 0.69542,1.644664 -0.38158,3.063809 -0.83262,4.642447 -0.29069,1.04185 2.13772,0.8129 2.26463,1.782721 0.18179,1.432007 -4.15197,1.936211 -6.59152,2.417263 -3.65634,0.715146 -7.91635,2.082842 -11.56925,0.884072 -4.3046,-1.383131 -7.37269,-4.12967 -10.46566,-7.235496 1.43801,6.725289 5.4382,10.602857 5.6157,11.422617 0.18607,0.905508 -0.45961,1.091583 -1.04099,1.682394 -1.28967,1.265654 -6.9156603,7.731122 -6.9336603,9.781382 1.6137903,-0.24782 3.5611503,-1.66096 4.9803003,-2.48586 1.58035,-0.90551 7.60593,-5.37303 9.29347,-6.065025 0.38587,-0.160351 5.0549,-1.531476 5.09434,-0.932948 0.0695,0.932948 -0.30784,1.137031 -0.18436,1.527183 0.22638,0.74602 1.44144,1.46546 2.02282,1.98509 1.50918,1.29224 3.21044,2.42841 4.27373,4.15625 1.49203,2.40183 1.55805,4.999171 1.98251,7.677111 0.99469,-0.11148 2.0091,-2.17545 2.55961,-2.99264 0.51278,-0.7726 2.38639,-4.071361 3.09725,-4.275441 0.67227,-0.20408 2.75511,0.95867 3.50284,1.18076 2.85973,0.84806 5.644,1.35398 8.560317,1.35398 3.50799,0.009 12.726,0.2581 19.55505,-4.80023 0.75545,-0.56766 2.55703,-2.7311 2.55703,-2.7311 0,0 -0.37644,-0.57709 -1.04785,-0.79061 0.89779,-0.58481 1.8659,-1.211632 1.94993,-1.92592 z" />
+
+                <path id="fish5" fill="#1e3a5f"
+                    d="m 127.65312,60.900973 c 0.0489,-0.44418 -0.2178,-0.896934 -1.01784,-1.415715 -0.72801,-0.47505 -1.4826,-0.932949 -2.2149,-1.401138 -1.6035,-1.02813 -3.29018,-1.969653 -4.89799,-3.079245 -4.67074,-3.24131 -10.22127,-4.404923 -15.76322,-5.150939 -2.27235,-0.286401 -4.812228,-0.168925 -6.721858,-1.574351 -1.48174,-1.081294 -4.04993,-4.828523 -6.86506,-6.456038 -0.4862,-0.290688 -2.77227,-1.444869 -2.77227,-1.444869 0,0 1.30939,3.550006 1.60951,4.264295 0.69542,1.644664 -0.38158,3.063809 -0.83262,4.642447 -0.29069,1.04185 2.13772,0.8129 2.26463,1.782721 0.18179,1.432007 -4.15197,1.936211 -6.59152,2.417263 -3.65634,0.715146 -7.91635,2.082842 -11.56925,0.884072 -4.3046,-1.383131 -7.37269,-4.12967 -10.46566,-7.235496 1.43801,6.725289 5.4382,10.602857 5.6157,11.422617 0.18607,0.905508 -0.45961,1.091583 -1.04099,1.682394 -1.28967,1.265654 -6.91566,7.731125 -6.93366,9.781382 1.61379,-0.247815 3.56115,-1.660957 4.9803,-2.485862 1.58035,-0.905509 7.60593,-5.373029 9.29347,-6.065023 0.38587,-0.160351 5.0549,-1.531476 5.09434,-0.932948 0.0695,0.932948 -0.30784,1.137031 -0.18436,1.527188 0.22638,0.746016 1.44144,1.46545 2.02282,1.985088 1.50918,1.292237 3.21044,2.42841 4.27373,4.156252 1.49203,2.401827 1.55805,4.999163 1.98251,7.677102 0.99469,-0.111473 2.0091,-2.17545 2.55961,-2.992638 0.51278,-0.772598 2.38639,-4.071359 3.09725,-4.275442 0.67227,-0.204082 2.75511,0.958673 3.50284,1.180763 2.85973,0.848057 5.643998,1.353976 8.560318,1.353976 3.50799,0.0094 12.726,0.258104 19.55506,-4.800226 0.75545,-0.567658 2.55703,-2.731104 2.55703,-2.731104 0,0 -0.37644,-0.57709 -1.04785,-0.790605 0.89779,-0.584808 1.8659,-1.211633 1.94993,-1.925921 z" />
+
+                <path id="fish6" fill="#1e3a5f"
+                    d="m 200.07076,80.737109 c 0.0489,-0.44418 -0.2178,-0.896934 -1.01784,-1.415715 -0.72801,-0.47505 -1.4826,-0.932949 -2.2149,-1.401138 -1.6035,-1.02813 -3.29018,-1.969653 -4.89798,-3.079245 -4.67074,-3.24131 -10.22127,-4.404923 -15.76322,-5.150939 -2.27235,-0.286401 -4.81223,-0.168925 -6.72186,-1.574351 -1.48174,-1.081294 -4.04993,-4.828523 -6.86506,-6.456038 -0.4862,-0.290688 -2.77227,-1.444869 -2.77227,-1.444869 0,0 1.30939,3.550006 1.60951,4.264295 0.69542,1.644664 -0.38158,3.063809 -0.83262,4.642447 -0.29069,1.04185 2.13772,0.8129 2.26463,1.782721 0.18179,1.432007 -4.15197,1.936211 -6.59152,2.417263 -3.65634,0.715146 -7.91635,2.082842 -11.56925,0.884072 -4.3046,-1.383131 -7.37269,-4.12967 -10.46566,-7.235496 1.43801,6.725289 5.4382,10.602857 5.6157,11.422617 0.18607,0.905508 -0.45961,1.091583 -1.04099,1.682394 -1.28967,1.265654 -6.91566,7.731125 -6.93366,9.781382 1.61379,-0.247815 3.56115,-1.660957 4.9803,-2.485862 1.58035,-0.905509 7.60593,-5.373029 9.29347,-6.065023 0.38587,-0.160351 5.0549,-1.531476 5.09434,-0.932948 0.0695,0.932948 -0.30784,1.137031 -0.18436,1.527188 0.22638,0.746016 1.44144,1.46545 2.02282,1.985088 1.50918,1.292237 3.21044,2.42841 4.27373,4.156252 1.49203,2.401827 1.55805,4.999163 1.98251,7.677102 0.99469,-0.111473 2.0091,-2.17545 2.55961,-2.992638 0.51278,-0.772598 2.38639,-4.071359 3.09725,-4.275442 0.67227,-0.204082 2.75511,0.958673 3.50284,1.180763 2.85973,0.848057 5.644,1.353976 8.56032,1.353976 3.50799,0.0094 12.726,0.258104 19.55505,-4.800226 0.75545,-0.567658 2.55703,-2.731104 2.55703,-2.731104 0,0 -0.37644,-0.57709 -1.04785,-0.790605 0.89779,-0.584808 1.8659,-1.211633 1.94993,-1.925921 z" />
+            </svg>
+        </div>
+    </div>
+
+    <!-- Company Name -->
+    <div style="position:fixed; top:1rem; left:1rem; z-index:100; text-align:left;">
+        <div style="font-size:0.75rem; color:hsl(200 70% 60%); font-weight:600;">مرسى الدقم للاستثمار ش م م</div>
+        <div style="font-size:0.65rem; color:hsl(200 70% 50%); font-weight:500;">Marsa Al Duqm Investments L L C</div>
+    </div>
+
+    <script>
+        // ========= WAVE ANIMATION =========
+
+        // Minimal SimplexNoise implementation
+        class SimplexNoise {
+            constructor() {
+                this.grad3 = [[1, 1, 0], [-1, 1, 0], [1, -1, 0], [-1, -1, 0], [1, 0, 1], [-1, 0, 1], [1, 0, -1], [-1, 0, -1], [0, 1, 1], [0, -1, 1], [0, 1, -1], [0, -1, -1]];
+                this.p = [];
+                for (let i = 0; i < 256; i++) { this.p[i] = Math.floor(Math.random() * 256); }
+                this.perm = [];
+                for (let i = 0; i < 512; i++) { this.perm[i] = this.p[i & 255]; }
+            }
+            dot(g, x, y) { return g[0] * x + g[1] * y; }
+            noise2D(xin, yin) {
+                let n0, n1, n2;
+                const F2 = 0.5 * (Math.sqrt(3.0) - 1.0);
+                const s = (xin + yin) * F2;
+                const i = Math.floor(xin + s);
+                const j = Math.floor(yin + s);
+                const G2 = (3.0 - Math.sqrt(3.0)) / 6.0;
+                const t = (i + j) * G2;
+                const X0 = i - t;
+                const Y0 = j - t;
+                const x0 = xin - X0;
+                const y0 = yin - Y0;
+                let i1, j1;
+                if (x0 > y0) { i1 = 1; j1 = 0; } else { i1 = 0; j1 = 1; }
+                const x1 = x0 - i1 + G2;
+                const y1 = y0 - j1 + G2;
+                const x2 = x0 - 1.0 + 2.0 * G2;
+                const y2 = y0 - 1.0 + 2.0 * G2;
+                const ii = i & 255;
+                const jj = j & 255;
+                const gi0 = this.perm[ii + this.perm[jj]] % 12;
+                const gi1 = this.perm[ii + i1 + this.perm[jj + j1]] % 12;
+                const gi2 = this.perm[ii + 1 + this.perm[jj + 1]] % 12;
+
+                let t0 = 0.5 - x0 * x0 - y0 * y0;
+                if (t0 < 0) n0 = 0.0;
+                else { t0 *= t0; n0 = t0 * t0 * this.dot(this.grad3[gi0], x0, y0); }
+
+                let t1 = 0.5 - x1 * x1 - y1 * y1;
+                if (t1 < 0) n1 = 0.0;
+                else { t1 *= t1; n1 = t1 * t1 * this.dot(this.grad3[gi1], x1, y1); }
+
+                let t2 = 0.5 - x2 * x2 - y2 * y2;
+                if (t2 < 0) n2 = 0.0;
+                else { t2 *= t2; n2 = t2 * t2 * this.dot(this.grad3[gi2], x2, y2); }
+
+                return 70.0 * (n0 + n1 + n2);
+            }
+        }
+
+        const $ = {};
+
+        /*========================================
+        Utility
+        ========================================*/
+
+        $.PI = Math.PI;
+        $.TAU = $.PI * 2;
+
+        $.rand = function (min, max) {
+            if (!max) {
+                var max = min;
+                min = 0;
+            }
+            return Math.random() * (max - min) + min;
+        };
+
+        /*========================================
+        Initialize
+        ========================================*/
+
+        $.init = () => {
+            $.c = document.getElementById('sea-canvas');
+            $.ctx = $.c.getContext('2d');
+            $.simplex = new SimplexNoise();
+            $.events();
+            $.reset();
+            $.loop();
+        };
+
+        /*========================================
+        Reset
+        ========================================*/
+
+        $.reset = () => {
+            $.dpr = window.devicePixelRatio || 1;
+            $.w = window.innerWidth;
+            $.h = window.innerHeight;
+            $.c.width = $.w * $.dpr;
+            $.c.height = $.h * $.dpr;
+            $.c.style.width = `${$.w}px`;
+            $.c.style.height = `${$.h}px`;
+            $.ctx.scale($.dpr, $.dpr);
+
+            // Animation params
+            // Horizon height
+            $.horizon = $.h * 0.55;
+
+            // Layer config: [count, amp, speed, color, y-offset-noise]
+            $.layers = [
+                { count: Math.floor($.w / 60), amp: 15, speed: 0.001, color: 'rgba(30, 58, 138, 0.6)', yOff: 0 },   // Dark Blue
+                { count: Math.floor($.w / 50), amp: 20, speed: 0.002, color: 'rgba(23, 37, 84, 0.7)', yOff: 10 },    // Navy
+                { count: Math.floor($.w / 40), amp: 30, speed: 0.003, color: 'rgba(15, 23, 42, 0.8)', yOff: 20 },    // Darker Slate
+                { count: Math.floor($.w / 30), amp: 40, speed: 0.004, color: 'rgba(2, 6, 23, 0.9)', yOff: 30 },      // Near Black
+            ];
+
+            $.t = 0;
+        };
+
+        /*========================================
+        Event
+        ========================================*/
+
+        $.events = () => {
+            window.addEventListener('resize', $.reset.bind(this));
+        };
+
+        /*========================================
+        Wave
+        ========================================*/
+
+        $.drawWave = (layer, index) => {
+            $.ctx.beginPath();
+
+            // Noise inputs
+            let xoff = 0;
+            let xinc = 0.03 + (index * 0.01);
+            let yinc = layer.speed;
+
+            // Time-based offset for this layer
+            let yTime = $.t * yinc;
+
+            // Start slightly off-screen left
+            $.ctx.moveTo(-20, $.horizon);
+
+            // Draw points
+            for (let i = 0; i <= layer.count + 2; i++) {
+                xoff += xinc;
+
+                let x = (-20) + (($.w + 40) / layer.count) * i;
+
+                // Simplex noise: x-noise + time-noise
+                let noiseVal = $.simplex.noise2D(xoff, yTime);
+                let sway = $.simplex.noise2D(yTime, 0) * (layer.amp * 0.5);
+
+                let y = $.horizon + noiseVal * layer.amp + sway + (index * 15); // Offset each layer slightly down
+
+                $.ctx.lineTo(x, y);
+            }
+
+            // Close shape to bottom corners
+            $.ctx.lineTo($.w + 20, $.h);
+            $.ctx.lineTo(-20, $.h);
+            $.ctx.closePath();
+
+            // Fill
+            $.ctx.fillStyle = layer.color;
+            $.ctx.fill();
+        };
+
+        // Deep Ocean Gradient Fill for the bottom-most area
+        $.drawDeepOcean = () => {
+            const grad = $.ctx.createLinearGradient(0, $.horizon, 0, $.h);
+            grad.addColorStop(0, 'rgba(3, 105, 161, 0.1)');
+            grad.addColorStop(1, 'rgba(2, 6, 23, 0.95)'); // Very dark at bottom
+            $.ctx.fillStyle = grad;
+            $.ctx.fillRect(0, $.horizon, $.w, $.h - $.horizon);
+        };
+
+        /*========================================
+        Loop
+        ========================================*/
+
+        $.loop = () => {
+            requestAnimationFrame($.loop);
+            $.ctx.clearRect(0, 0, $.w, $.h);
+
+            $.t += 1;
+
+            // Draw layers back to front
+            $.layers.forEach((layer, i) => {
+                $.drawWave(layer, i);
+            });
+
+            // Overlay deep ocean darkness
+            $.drawDeepOcean();
+        };
+
+        /*========================================
+        Start
+        ========================================*/
+
+        // Robust initialization
+        // Start immediately
+        $.init();
+
+        // Fish Randomizer
+        setInterval(() => {
+            const fish = document.querySelectorAll('.fish:not(.fish-jump)');
+            fish.forEach(f => {
+                // If fish is off-screen (swim cycle reset), randomize depth
+                if (f.getBoundingClientRect().right < 0 || f.getBoundingClientRect().left > window.innerWidth) {
+                    // Random percentage between 10% and 90% of the underwater area
+                    f.style.top = (Math.random() * 80 + 10) + '%';
+                }
+            });
+        }, 2000);
+
+        // Create Bubbles
+        const bubbleContainer = document.getElementById('bubbles');
+        for (let i = 0; i < 20; i++) {
+            const b = document.createElement('div');
+            b.className = 'bubble';
+            const size = Math.random() * 10 + 5;
+            b.style.width = size + 'px';
+            b.style.height = size + 'px';
+            b.style.left = Math.random() * 100 + '%';
+            b.style.animationDuration = (Math.random() * 10 + 5) + 's';
+            b.style.animationDelay = (Math.random() * 5) + 's';
+            bubbleContainer.appendChild(b);
+        }
+    </script>
+</body>
+
+</html>
